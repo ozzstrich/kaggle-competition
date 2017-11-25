@@ -2,7 +2,7 @@
 solution.py
 '''
 
-class Store :
+class SalesRecord :
     '''
     [0] store = int
     [1] dayofweek = int
@@ -45,11 +45,11 @@ trainData = []
 
 trainFile = open("./train.csv", "r")
 for line in trainFile :
-    store = Store(line.split(","))
-    # If the Store id is None then we don't have a valid store so throw the
-    # object away
-    if store.Store != None : trainData.append(store)
+    salesRecord = SalesRecord(line.split(","))
+    # If the SalesRecord Store id is None then we don't have a valid store so
+    # throw the object away
+    if salesRecord.Store != None : trainData.append(salesRecord)
 trainFile.close()
 
-# Print first 100 stores for testing purposes
+# Print first 100 sales records for testing purposes
 for x in trainData[0:100] : print(x)
