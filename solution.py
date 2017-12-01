@@ -89,25 +89,29 @@ class SalesRecord :
                ",StateHoliday=" + str(self.StateHoliday) + ",SchoolHoliday=" + \
                str(self.SchoolHoliday) + "}"
 
-stores = []
+class Solution :
+    def __init__(self) :
+        stores = []
 
-storeFile = open("./store.csv", "r")
-for line in storeFile :
-    store = Store(line.split(","))
-    # If the Store id is None then we don't have a valid store so
-    # throw the object away
-    if store.Store != None : stores.append(store)
-storeFile.close()
+        storeFile = open("./store.csv", "r")
+        for line in storeFile :
+            store = Store(line.split(","))
+            # If the Store id is None then we don't have a valid store so
+            # throw the object away
+            if store.Store != None : stores.append(store)
+        storeFile.close()
 
-trainFile = open("./train.csv", "r")
-for line in trainFile :
-    salesRecord = SalesRecord(line.split(","))
-    # If the SalesRecord Store id is None then we don't have a valid store so
-    # throw the object away
-    if salesRecord.Store != None :
-        # This is naughty. Rely on index to find store.
-        stores[salesRecord.Store - 1].SalesRecords.append(salesRecord)
-trainFile.close()
+        trainFile = open("./train.csv", "r")
+        for line in trainFile :
+            salesRecord = SalesRecord(line.split(","))
+            # If the SalesRecord Store id is None then we don't have a valid store so
+            # throw the object away
+            if salesRecord.Store != None :
+                # This is naughty. Rely on index to find store.
+                stores[salesRecord.Store - 1].SalesRecords.append(salesRecord)
+        trainFile.close()
 
-# Print stores for testing purposes
-for x in stores : print(x)
+        # Print stores for testing purposes
+        for x in stores : print(x)
+
+Solution()
