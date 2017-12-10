@@ -9,7 +9,9 @@ numpy.random.seed(7)
 
 class Solution :
     def __init__(self) :
-        trainFile = numpy.loadtxt("train2.csv", delimiter = ",")
+        traindata = numpy.loadtxt("train2.csv", delimiter = ",")
+        X = traindata[:,0:8]
+        Y = traindata[:,8]
 
         # Create model
         model = Sequential()
@@ -18,6 +20,9 @@ class Solution :
         model.add(Dense(1, activation='relu'))
 
         # Compile model
-        model.compile(loss='binary_crossentropy', optimizer='adam', metric=['accuracy'])
+        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+        # Run model
+        model.fit(X, Y, epochs = 150, batch_size=10)
 
 Solution()
