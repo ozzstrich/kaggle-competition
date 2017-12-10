@@ -17,4 +17,7 @@ class Solution :
         model.add(Dense(8, activation='relu'))
         model.add(Dense(1, activation='relu'))
 
+        # Compile model
+        model.compile(loss='binary_crossentropy', optimizer='adam', metric=['accuracy'])
+
 Solution()
