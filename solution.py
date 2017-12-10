@@ -3,6 +3,8 @@ solution.py
 '''
 
 import numpy
+import keras
+import math
 from keras.models import Sequential
 from keras.layers import Dense
 numpy.random.seed(7)
@@ -21,15 +23,21 @@ class Solution :
         model.add(Dense(1, activation='relu'))
 
         # Compile model
+        #keras.optimizers.Adam(lr=0.5)
         model.compile(loss='mean_squared_error', optimizer='adam')
 
         # Run model
-        model.fit(X, Y, epochs = 2000, batch_size=50)
+        model.fit(X, Y, epochs = 50, batch_size=50)
 
         # Predict
         predictions = model.predict(X)
 
+        #RMSE NOT WORKING!!
+        rmse = 0
         for x in range(0, len(predictions)) :
             print(str(predictions[x]) + " : " + str(Y[x]))
+            rmse += math.pow((Y[x] - predictions[x]) / Y[x], 2)
+        rmse = math.sqrt(rmse / len(predictions))
+        print("RMSE:", rmse)
 
 Solution()
