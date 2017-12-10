@@ -3,12 +3,15 @@ solution.py
 '''
 
 import numpy
+import math
 from keras.models import Sequential
 from keras.layers import Dense
-numpy.random.seed(7)
+numpy.random.seed(14)
 
 class Solution :
     def __init__(self) :
+        epochs = 1000 
+        
         traindata = numpy.loadtxt("train_small.csv", delimiter = ",")
         X = traindata[:,0:15]
         Y = traindata[:,15]
@@ -24,12 +27,18 @@ class Solution :
         model.compile(loss='mean_squared_error', optimizer='adam')
 
         # Run model
-        model.fit(X, Y, epochs = 2000, batch_size=50)
+        model.fit(X, Y, epochs = epochs, batch_size=50)
 
         # Predict
         predictions = model.predict(X)
 
+        rmse = 0
         for x in range(0, len(predictions)) :
-            print(str(predictions[x]) + " : " + str(Y[x]))
+            #print(str(predictions[x]) + " : " + str(Y[x]))
+            if Y[x] == 0 : continue
+            rmse += math.pow(((Y[x] - predictions[x]) / Y[x]), 2)
+        rmse /= len(Y)
+        rmse = math.sqrt(rmse)
+        print("\nRMSE:", rmse)
 
 Solution()
