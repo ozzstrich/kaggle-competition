@@ -39,6 +39,20 @@ class Solution :
             rmse += math.pow(((Y[x] - predictions[x]) / Y[x]), 2)
         rmse /= len(Y)
         rmse = math.sqrt(rmse)
-        print("\nRMSE:", rmse)
+        print("\nTrain RMSE:", rmse)
+
+        testdata = numpy.loadtxt("test_small1.csv", delimiter = ",")
+        Xt = testdata[:,0:15]
+        Yt = testdata[:,15]
+        predictionsT = model.predict(Xt)
+        
+        rmse = 0
+        for x in range(0, len(predictionsT)) :
+            #print(str(predictions[x]) + " : " + str(Y[x]))
+            if Yt[x] == 0 : continue
+            rmse += math.pow(((Yt[x] - predictionsT[x]) / Yt[x]), 2)
+        rmse /= len(Yt)
+        rmse = math.sqrt(rmse)
+        print("\nTest RMSE:", rmse)
 
 Solution()
